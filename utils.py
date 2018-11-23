@@ -180,4 +180,10 @@ class EmbeddingTransformer(BaseEstimator,TransformerMixin):
         return [self.inverse_dictionary[index] for index in y]
 
 
-
+def dropout_tf(dropout_rate, mode):
+    def positive():
+        return dropout_rate
+    def negative():
+        return 0.0
+    dropout = tf.cond(mode,positive,negative)
+    return dropout
